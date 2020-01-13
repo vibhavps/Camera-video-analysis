@@ -30,7 +30,7 @@ Once we complete these steps in Command prompt, open jupyter notebook and by usi
 
 ### Dark Data
 
-![](images/d.png)
+![](images/d.PNG)
 
 *Image courtesy:* *https://www.m-files.com/blog/sink-swim-managing-growing-flood-dark-data-eim/*
 
