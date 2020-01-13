@@ -30,7 +30,7 @@ Once we complete these steps in Command prompt, open jupyter notebook and by usi
 
 ### Dark Data
 
-![1578902032085](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578902032085.png)
+![](images/d.png)
 
 *Image courtesy:* *https://www.m-files.com/blog/sink-swim-managing-growing-flood-dark-data-eim/*
 
@@ -40,7 +40,7 @@ Around 65% of the data is dark data and out of this majority of it comprises Vid
 
 ## How the video logs were processed ?
 
-![1578901821468](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578901821468.png)
+![](images/c.png)
 
 *AWS services used: S3, Rekognition*
 
