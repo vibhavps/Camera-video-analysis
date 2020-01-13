@@ -40,7 +40,7 @@ Around 65% of the data is dark data and out of this majority of it comprises Vid
 
 ## How the video logs were processed ?
 
-![](images/c.png)
+![](images/c.PNG)
 
 *AWS services used: S3, Rekognition*
 
@@ -60,35 +60,35 @@ Tableau: Visualizations
 
 #### System Architecture explained below-
 
-![1578899588622](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578899588622.png)
+![](images/Capture.PNG)
 
 
 
 Snippets from a video showing different expressions (Video Courtesy: Darshika Sharma)
 
-![1578900048431](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578900048431.png)
+![](images/final.PNG)
 
 Based on the video overall Sentiment analysis result.
 
-<img src="C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578901694703.png" alt="1578901694703" style="zoom:80%;" />
+![](images/b.PNG)
 
 
 
 ### Footfall Analysis - Heatmap Creation
 
-![1578901166880](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578901166880.png)
+![](images/delta.jfif)
 
 *The above image was the snippet from the live video captured during our trends market place presentation.*
 
 
 
-![1578900179842](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578900179842.png)
+![](images/map.PNG)
 
 *This image is the footfall video analysis. The Carlson School's atrium was divided into 8 segments and the real-time heat map was generated to analyze which projects were most popular. It also helps to analyze how the traffic moved during the entire presentation time.*
 
 
 
-![1578901633798](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578901633798.png)
+![](images/a.PNG)
 
 *Here we show a cumulative population that was in the defined section(s) of the atrium, here denoted as segments.*
 
@@ -98,7 +98,7 @@ Other than feedback channel, retail can use it to solve problem of queues based 
 
 ###### **AI traffic control:** Extending the above use case, traffic lights durations can be extended or reduced based on the traffic density.
 
-![1578902141982](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578902141982.png)
+![](images/1_1.png)
 
 *Traffic Analysis for automated traffic control.*
 
@@ -106,13 +106,13 @@ Other than feedback channel, retail can use it to solve problem of queues based 
 
 ###### Another use case, for academic purpose, would be to check the involvement of students in a class.
 
-![1578902195571](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578902195571.png)
+![](images/2_2.png)
 
 *Attendance of students in class*
 
 ###### Our project can also help a retail outlet identify sections on the floor that have high footfall which in turn helps them with product placements and better staff allocation.
 
-![1578902331088](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578902331088.png)
+![](images/3_3.png)
 
 *Better management of self-checkout queues. Based on congestion on different check-out points.*
 
