@@ -1,3 +1,9 @@
+# **DARK DATA** - Insights from Camera feed
+
+
+
+### This project helps to utilize the dark data which every organization saves but never utilizes to extract the insights.
+
 To begin the analysis we first install the libraries necessary to access AWS in the local machine.
 
 We install boto3, AWScli and AWS using the command prompt using pip package.
@@ -22,81 +28,91 @@ command and provide access key, access id, region and format during the setup.
 
 Once we complete these steps in Command prompt, open jupyter notebook and by using the stored video in the local system, frames are generated from the video. These frames are then stored in the S3 bucket and AWS Rekognition is used to analyze the headcount and emotions of the human beings. All these steps occur automatically using python script.
 
-Appendix : 
+### Dark Data
 
-Boto : Boto is the Amazon Web Services (AWS) SDK for Python. It enables Python developers to create, configure, and manage AWS services, such as EC2 and S3. Boto provides an easy to use, object-oriented API, as well as low-level access to AWS services.
+![1578902032085](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578902032085.png)
 
-AWS CLI : The AWS Command Line Interface (CLI) is a unified tool to manage your AWS services. With just one tool to download and configure, you can control multiple AWS services from the command line and automate them through scripts.
+*Image courtesy:* *https://www.m-files.com/blog/sink-swim-managing-growing-flood-dark-data-eim/*
 
-S3 : Amazon Simple Storage Service (Amazon S3) is an object storage service which offers scalability, data availability, security, and performance. 
-
-AWS Rekognition : Amazon Rekognition makes it easy to add image and video analysis to your applications using proven, highly scalable, deep learning technology that requires no machine learning expertise to use. This can be used to identify objects, people, text, scenes, and activities in images and videos, as well as detect any inappropriate content. It provides highly accurate facial analysis and facial search capabilities that you can use to detect, analyze, and compare faces for a wide variety of user verification, people counting, and public safety use cases.
-
-The below code is used to do the analysis in AWS S3. We are first detecting the faces and then identifying the features which needs to be considered for our analysis. The features which are given by the Rekognition are Age, Roll, Yaw, Pitch, Gender and Emotions. We then finally use the value of Emotions with the highest confidence. 
-
-```
-import cv2,boto3
-
-s3_connection = boto3.client('s3')
-client = boto3.client('rekognition',region_name = 'us-east-2')
-s3_bucket = "trendsmarketmsba"
-
-def rekognitionFace(bucket,key):
-    response = client.detect_faces(Image = {
-        'S3Object':{
-            'Bucket':bucket,
-            'Name':key,
-        }
-    }, Attributes = ['ALL'])
-    
-    a_dataframe = pd.DataFrame(columns=["Age","Roll","Yaw","Pitch","Gender","Emotions"])
-    for a_em in response['FaceDetails']:
-        emo = {}
-        emo['Age'] = (a_em['AgeRange']['Low'] + a_em['AgeRange']['High'])/2
-        emo['Roll'] = a_em['Pose']['Roll']
-        emo['Yaw'] = a_em['Pose']['Yaw']
-        emo['Pitch'] = a_em['Pose']['Pitch']
-        emo['Gender'] = a_em['Gender']['Value']
-        emo['Emotions'] = a_em['Emotions']
-        a_dataframe = a_dataframe.append(pd.DataFrame(emo))   
-    return a_dataframe
-
-def rekognitionLabel(bucket,key):
-    response = client.detect_labels(Image = {
-        'S3Object':{
-            'Bucket':bucket,
-            'Name':key,
-        }
-    }, MinConfidence = 60)
-    a_dataframe = pd.DataFrame()
-    for label in response['Labels']:
-        if label['Name'] == 'Person':
-            for instance in label['Instances']:
-                a_person = {}
-                a_person['Confidence'] = instance['Confidence']
-                a_person['Top'] = instance['BoundingBox']['Top']
-                a_person['Left'] = instance['BoundingBox']['Left']
-                a_dataframe = a_dataframe.append(a_person,ignore_index=True)
-    return a_dataframe
-
-i=0
-a=[]
-cap = cv2.VideoCapture("vid_atrium.mp4")
-while (cap.isOpened()):
-    ret,frame = cap.read()
-    if ret:
-        cv2.imwrite('temp/kang'+str(i)+'.jpeg',frame)
-        a.append(i)
-        i+= 20
-        cap.set(1, i)
-    else:
-        break
+Around 65% of the data is dark data and out of this majority of it comprises Video footages. It is this data which is not utilized for getting insights. Through our project we help to develop actionable insights.
 
 
 
-cap.release()
-cv2.destroyAllWindows()
-```
+## How the video logs were processed ?
+
+![1578901821468](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578901821468.png)
+
+*AWS services used: S3, Rekognition*
+
+**INPUT** -
+
+Pilot:  Sample video feeds 
+
+Production:  Live video feeds
+
+**OUTPUT** -
+
+Rekognition: Locations of objects in the frame & if applicable, their sentiments
+
+MySQL: Rekognition output is transformed and stored in MySQL for feeding visualization software a structured dataframe.
+
+Tableau: Visualizations
+
+#### System Architecture explained below-
+
+![1578899588622](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578899588622.png)
 
 
+
+Snippets from a video showing different expressions (Video Courtesy: Darshika Sharma)
+
+![1578900048431](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578900048431.png)
+
+Based on the video overall Sentiment analysis result.
+
+<img src="C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578901694703.png" alt="1578901694703" style="zoom:80%;" />
+
+
+
+### Footfall Analysis - Heatmap Creation
+
+![1578901166880](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578901166880.png)
+
+*The above image was the snippet from the live video captured during our trends market place presentation.*
+
+
+
+![1578900179842](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578900179842.png)
+
+*This image is the footfall video analysis. The Carlson School's atrium was divided into 8 segments and the real-time heat map was generated to analyze which projects were most popular. It also helps to analyze how the traffic moved during the entire presentation time.*
+
+
+
+![1578901633798](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578901633798.png)
+
+*Here we show a cumulative population that was in the defined section(s) of the atrium, here denoted as segments.*
+
+### Other use cases
+
+Other than feedback channel, retail can use it to solve problem of queues based on density.
+
+###### **AI traffic control:** Extending the above use case, traffic lights durations can be extended or reduced based on the traffic density.
+
+![1578902141982](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578902141982.png)
+
+*Traffic Analysis for automated traffic control.*
+
+
+
+###### Another use case, for academic purpose, would be to check the involvement of students in a class.
+
+![1578902195571](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578902195571.png)
+
+*Attendance of students in class*
+
+###### Our project can also help a retail outlet identify sections on the floor that have high footfall which in turn helps them with product placements and better staff allocation.
+
+![1578902331088](C:\Users\poona\AppData\Roaming\Typora\typora-user-images\1578902331088.png)
+
+*Better management of self-checkout queues. Based on congestion on different check-out points.*
 
